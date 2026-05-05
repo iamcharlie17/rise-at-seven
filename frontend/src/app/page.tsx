@@ -17,8 +17,11 @@ const Home = () => {
         <Preloader onComplete={() => setIsPreloaderDone(true)} />
       )}
       <Announcement/>
-      {/* <Navbar /> */}
+      <Navbar />
       <Hero bgImage={image} isPreloaderDone={isPreloaderDone} />
+      <div className="h-98">
+
+      </div>
     </main>
   );
 };
