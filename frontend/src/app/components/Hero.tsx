@@ -10,7 +10,7 @@ import LaurelWreathRight from "./icons/laurel-wreath-right";
 const Hero = ({ bgImage, isPreloaderDone }: { bgImage: string, isPreloaderDone: boolean }) => {
   return (
     <section
-      className="h-[calc(100vh-1rem)] bg-cover bg-center flex items-center justify-center relative m-2 rounded-3xl overflow-hidden text-white"
+      className="h-[calc(100vh-1rem)] my-2 bg-cover bg-center flex items-center justify-center relative rounded-3xl overflow-hidden text-white"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`,
       }}
