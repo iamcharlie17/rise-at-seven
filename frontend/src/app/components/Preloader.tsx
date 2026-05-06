@@ -16,7 +16,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 pointer-events-none">
+    <div className="fixed hidden lg:block inset-0 z-50 pointer-events-none">
       <svg
         className="w-full h-full"
         viewBox="0 0 100 100"

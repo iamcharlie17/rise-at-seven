@@ -6,6 +6,7 @@ import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { HiOutlineMenuAlt4 } from "react-icons/hi";
 
 const links = [
   { name: "Services +", href: "#" },
@@ -83,11 +84,11 @@ const Navbar = () => {
       >
         <Link href="/">
           <Logo
-            className={`w-40 ${isModified ? "text-black" : "text-white"}`}
+            className={`w-30 lg:w-40 ${isModified ? "text-black" : "text-white"}`}
           />
         </Link>
         <div
-          className="flex items-center gap-2 font-semibold"
+          className="hidden lg:flex items-center gap-2 font-semibold"
           onMouseLeave={() => setHoveredIndex(null)}
         >
           {links.map((link, index) => (
@@ -121,13 +122,16 @@ const Navbar = () => {
 
         <div>
           <button
-            className={`relative overflow-hidden py-2 px-8 rounded-4xl font-semibold hover:rounded-xl transition-all duration-300 ease-out group cursor-pointer ${
+            className={`hidden lg:flex relative overflow-hidden py-2 px-8 rounded-4xl font-semibold hover:rounded-xl transition-all duration-300 ease-out group cursor-pointer ${
               isModified ? "bg-black text-white" : "bg-white text-black"
             }`}
           >
             <AnimatedText>
               Get In Touch <FaArrowRight size={15} className="-rotate-45" />
             </AnimatedText>
+          </button>
+          <button className="block lg:hidden">
+            <HiOutlineMenuAlt4 size={30}/>
           </button>
         </div>
       </div>
