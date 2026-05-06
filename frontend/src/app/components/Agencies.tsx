@@ -12,15 +12,15 @@ const Agencies = () => {
       <h1 className="whitespace-nowrap font-semibold">The agency behind ...</h1>
       <section className="relative overflow-hidden">
         {/* Left blur overlay */}
-        <div className="absolute left-0 top-0 w-24 lg:w-48 h-full z-10 bg-white backdrop-blur-3xl mask-[linear-gradient(to_right,white,transparent)] pointer-events-none" />
+        <div className="absolute left-0 top-0 w-24 lg:w-48 h-full z-10 bg-[#EFEEEC] backdrop-blur-3xl mask-[linear-gradient(to_right,white,transparent)] pointer-events-none" />
 
         {/* Right blur overlay */}
-        <div className="absolute right-0 top-0 w-24 lg:w-48 h-full z-10 bg-white backdrop-blur-3xl mask-[linear-gradient(to_left,white,transparent)] pointer-events-none" />
+        <div className="absolute right-0 top-0 w-24 lg:w-48 h-full z-10 bg-[#EFEEEC] backdrop-blur-3xl mask-[linear-gradient(to_left,white,transparent)] pointer-events-none" />
 
         <Marquee speed={30} gradient={false}>
           {[...logos, ...logos, ...logos, ...logos].map((src, i) => (
             <div key={i} className="px-10 lg:px-20">
-              <img className="w-20" src={src} alt="brand logo" />
+              <img className=" w-20 lg:w-25" src={src} alt="brand logo" />
             </div>
           ))}
         </Marquee>

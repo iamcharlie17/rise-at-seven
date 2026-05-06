@@ -108,7 +108,7 @@ const Navbar = () => {
               <Link
                 key={index}
                 href={link.href}
-                className="relative px-4 py-0.5 rounded-full transition-colors duration-300 z-10"
+                className="relative px-4 py-0.5 rounded-full transition-colors duration-300 z-10 text-[15px]"
                 onMouseEnter={() => setHoveredIndex(index)}
               >
                 {hoveredIndex === index && (
