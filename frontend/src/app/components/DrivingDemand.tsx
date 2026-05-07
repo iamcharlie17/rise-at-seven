@@ -3,7 +3,7 @@ import Button from './buttons/Button';
 
 const DrivingDemand = () => {
   return (
-   <section className="py-8 lg:py-12 lg:px-4">
+   <section className="py-8 lg:py-12 px-2 lg:px-4">
         <div className="flex flex-col-reverse gap-4 lg:gap-0 lg:flex-row justify-between items-start">
           <div className="flex-1 w-full">
             <h1 className="max-w-72 lg:max-w-140 lg:text-2xl text-black font-medium leading-5 lg:leading-none">
@@ -17,7 +17,7 @@ const DrivingDemand = () => {
             </div>
           </div>
           <div className="flex-1 lg:max-w-4xl lg:px-16">
-            <div className="text-[42px] lg:text-[90px] leading-none font-semibold lg:font-medium text-black">
+            <div className="text-[40px] lg:text-[90px] leading-none font-semibold lg:font-medium text-black">
               <h1>Driving Demand &</h1>
               <div className="flex gap-2 items-center">
                 <h1>Discovery</h1>

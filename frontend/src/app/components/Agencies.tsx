@@ -8,7 +8,7 @@ const logos = [
 
 const Agencies = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-8 justify-between lg:items-center py-8 lg:py-12 lg:px-4">
+    <div className="flex flex-col lg:flex-row gap-8 justify-between lg:items-center py-8 lg:py-12 px-2 lg:px-4">
       <h1 className="whitespace-nowrap font-semibold">The agency behind ...</h1>
       <section className="relative overflow-hidden">
         {/* Left blur overlay */}
