@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
 import { HiArrowRight } from "react-icons/hi";
+import Button from "./buttons/Button";
+import AnimatedText from "./AnimatedText";
 
 const works = [
   {
@@ -73,6 +75,11 @@ const FeaturedWork = () => {
     <>
       <DesktopFeaturedWork />
       <MobileFeaturedWork />
+      <div className="flex justify-center my-4 px-2 lg:px-4">
+        <Button type="white">
+          <AnimatedText>Explore Our Work</AnimatedText>
+        </Button>
+      </div>
     </>
   );
 };
@@ -225,35 +232,72 @@ const DesktopFeaturedWork = () => {
 }
 
 const MobileFeaturedWork = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !containerRef.current) return;
+
+      const { top, height } = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const maxScroll = height - windowHeight;
+      const scrolled = -top;
+
+      let percentage = 0;
+      if (maxScroll > 0) {
+        percentage = scrolled / maxScroll;
+      }
+
+      if (percentage < 0) percentage = 0;
+      if (percentage > 1) percentage = 1;
+
+      const container = containerRef.current;
+      const maxContainerScroll = container.scrollHeight - container.clientHeight;
+
+      container.scrollTop = percentage * maxContainerScroll;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <section className="flex lg:hidden p-2 h-[calc(100vh-16px)] bg-black text-white rounded-2xl overflow-scroll">
-      <div className="p-4">
-        <h1 className="font-medium text-lg">Featured Work</h1>
-        <div className="flex flex-col gap-4">
-          {works?.map((work) => (
-            <div
-              key={work.id}
-              className="relative mt-4 rounded-2xl overflow-hidden"
-            >
-              <img
-                src={work.image}
-                alt={work.title}
-                className="w-full h-auto"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent pointer-events-none"></div>
-              {work.type && (
-                <span className="absolute top-4 right-4 bg-[#EFEEEC]/50 backdrop-blur-md px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
-                  <FaSearch /> {work.type} <BsGraphUpArrow />
-                </span>
-              )}
-              <div className="absolute bottom-4 left-4">
-                <p className="text-[12px] font-medium">[{work.date}]</p>
-                <h2 className="font-semibold text-3xl">{work.title}</h2>
+    <div ref={sectionRef} className="lg:hidden h-[300vh] relative">
+      <section 
+        className="sticky top-2 flex flex-col p-2 h-[calc(100vh-16px)] w-full bg-black text-white rounded-2xl overflow-hidden"
+        ref={containerRef}
+      >
+        <div className="p-4">
+          <h1 className="font-medium text-lg">Featured Work</h1>
+          <div className="flex flex-col gap-4">
+            {works?.map((work) => (
+              <div
+                key={work.id}
+                className="relative mt-4 rounded-2xl overflow-hidden"
+              >
+                <img
+                  src={work.image}
+                  alt={work.title}
+                  className="w-full h-auto"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent pointer-events-none"></div>
+                {work.type && (
+                  <span className="absolute top-4 right-4 bg-[#EFEEEC]/50 backdrop-blur-md px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
+                    <FaSearch /> {work.type} <BsGraphUpArrow />
+                  </span>
+                )}
+                <div className="absolute bottom-4 left-4">
+                  <p className="text-[12px] font-medium">[{work.date}]</p>
+                  <h2 className="font-semibold text-3xl">{work.title}</h2>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
