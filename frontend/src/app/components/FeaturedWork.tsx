@@ -186,7 +186,7 @@ const DesktopFeaturedWork = () => {
             </div>
           </div>
           <div
-            className="flex-1 p-8 pb-0 overflow-hidden"
+            className="flex-1 p-8 overflow-hidden"
             ref={imageContainerRef}
           >
             <div className="flex flex-col gap-8 items-end">
@@ -266,7 +266,7 @@ const MobileFeaturedWork = () => {
 
   return (
     <div ref={sectionRef} className="lg:hidden h-[300vh] relative">
-      <section 
+      <section
         className="sticky top-2 flex flex-col p-2 h-[calc(100vh-16px)] w-full bg-black text-white rounded-2xl overflow-hidden"
         ref={containerRef}
       >

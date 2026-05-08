@@ -8,6 +8,7 @@ import Preloader from "./components/Preloader";
 import Agencies from "./components/Agencies";
 import DrivingDemand from "./components/DrivingDemand";
 import FeaturedWork from "./components/FeaturedWork";
+import Service from "./components/Service";
 
 const Home = () => {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -25,6 +26,7 @@ const Home = () => {
       <Agencies />
       <DrivingDemand/>
       <FeaturedWork/>
+      <Service/>
     </main>
   );
 };
