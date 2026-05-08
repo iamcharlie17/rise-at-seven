@@ -9,6 +9,7 @@ import Agencies from "./components/Agencies";
 import DrivingDemand from "./components/DrivingDemand";
 import FeaturedWork from "./components/FeaturedWork";
 import Service from "./components/Service";
+import Sliding from "./components/Sliding";
 
 const Home = () => {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -24,9 +25,10 @@ const Home = () => {
       <Navbar />
       <Hero bgImage={image} isPreloaderDone={isPreloaderDone} />
       <Agencies />
-      <DrivingDemand/>
-      <FeaturedWork/>
-      <Service/>
+      <DrivingDemand />
+      <FeaturedWork />
+      <Service />
+      <Sliding/>
     </main>
   );
 };
