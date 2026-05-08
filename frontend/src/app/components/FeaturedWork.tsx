@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
 import { HiArrowRight } from "react-icons/hi";
-import Button from "./buttons/Button";
 import AnimatedText from "./AnimatedText";
+import Button from "./buttons/Button";
 
 const works = [
   {
@@ -139,18 +139,22 @@ const DesktopFeaturedWork = () => {
   }, []);
 
   return <>
-    {isHovered && (
+    <div
+      className={`fixed pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 ${
+        isHovered ? "opacity-100" : "opacity-0"
+      }`}
+      style={{ left: cursorPos.x, top: cursorPos.y }}
+    >
       <div
-        className="fixed pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2"
-        style={{ left: cursorPos.x, top: cursorPos.y }}
+        className={`bg-[#B2F6E3] text-black -rotate-45 rounded-full w-24 h-24 p-8 flex justify-center items-center transition-transform duration-300 ${
+          isHovered ? "scale-100" : "scale-[0.1]"
+        }`}
       >
-        <div className="bg-[#B2F6E3] text-black -rotate-45 p-8 rounded-full w-24 h-24 flex justify-center items-center transition-colors duration-300">
-          <div>
-            <HiArrowRight size={30} />
-          </div>
+        <div>
+          <HiArrowRight size={30} />
         </div>
       </div>
-    )}
+    </div>
     <div ref={sectionRef} className="hidden lg:block h-[350vh] relative">
       <section className="sticky top-0 p-4 h-screen">
         <div className="bg-black rounded-2xl h-full flex justify-between">
