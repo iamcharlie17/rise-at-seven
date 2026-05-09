@@ -10,6 +10,7 @@ import DrivingDemand from "./components/DrivingDemand";
 import FeaturedWork from "./components/FeaturedWork";
 import Service from "./components/Service";
 import Sliding from "./components/Sliding";
+import Legacy from "./components/Legacy";
 
 const Home = () => {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -28,7 +29,9 @@ const Home = () => {
       <DrivingDemand />
       <FeaturedWork />
       <Service />
-      <Sliding/>
+      <Sliding />
+      <Legacy/>
+      <section className="h-98 bg-green-400"></section>
     </main>
   );
 };
