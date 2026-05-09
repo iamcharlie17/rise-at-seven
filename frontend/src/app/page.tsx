@@ -12,6 +12,7 @@ import Service from "./components/Service";
 import Sliding from "./components/Sliding";
 import Legacy from "./components/Legacy";
 import WhatNew from "./components/WhatNew";
+import Footer from "./components/Footer";
 
 const Home = () => {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -33,7 +34,7 @@ const Home = () => {
       <Sliding />
       <Legacy/>
       <WhatNew/>
-      <section className="h-98 bg-green-200"></section>
+      <Footer/>
     </main>
   );
 };
