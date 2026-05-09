@@ -24,14 +24,14 @@ const legacyCards: CardType[] = [
     title: "Pioneers",
     description: (
       <>
-        We&apos;re dedicated to creating the industry narrative that
-        others follow 3 years from now. We paved the path for creative
-        SEO, multi-channel search with Digital PR, and Social Search and
-        we will continue to do it
+        We&apos;re dedicated to creating the industry narrative that others
+        follow 3 years from now. We paved the path for creative SEO,
+        multi-channel search with Digital PR, and Social Search and we will
+        continue to do it
         <br />
         <br />
-        We&apos;re on a mission to be the first search-first agency to
-        win a Cannes Lion disrupting the status quo.
+        We&apos;re on a mission to be the first search-first agency to win a
+        Cannes Lion disrupting the status quo.
       </>
     ),
     rotation: 5,
@@ -46,10 +46,9 @@ const legacyCards: CardType[] = [
     title: "Award Winning",
     description: (
       <>
-        A roll top bath full of 79 awards. Voted The Drum&apos;s best
-        agency outside of London. We are official judges for industry
-        awards including Global Search Awards and Global Content Marketing
-        Awards.
+        A roll top bath full of 79 awards. Voted The Drum&apos;s best agency
+        outside of London. We are official judges for industry awards including
+        Global Search Awards and Global Content Marketing Awards.
       </>
     ),
     rotation: 10,
@@ -64,11 +63,10 @@ const legacyCards: CardType[] = [
     title: "Speed",
     description: (
       <>
-        People ask us why we are called Rise at Seven? Ever heard the
-        saying Early Bird catches the worm? Google is moving fast, but
-        humans are moving faster. We chase consumers, not algorithms.
-        We&apos;ve created a service which takes ideas to result within
-        60 minutes.
+        People ask us why we are called Rise at Seven? Ever heard the saying
+        Early Bird catches the worm? Google is moving fast, but humans are
+        moving faster. We chase consumers, not algorithms. We&apos;ve created a
+        service which takes ideas to result within 60 minutes.
       </>
     ),
     rotation: 15,
@@ -76,13 +74,70 @@ const legacyCards: CardType[] = [
   },
 ];
 
-const Card = ({ card, scrollYProgress, index }: { card: CardType, scrollYProgress: MotionValue<number>, index: number }) => {
+const Legacy = () => {
+  return (
+    <>
+      <DesktopLegacy />
+    </>
+  );
+};
+
+export default Legacy;
+
+const DesktopLegacy = () => {
+  // Outer ref: full scroll range for animations (400vh → range = 300vh)
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ["start start", "end end"],
+  });
+  return (
+    <div ref={scrollRef} className="h-[300vh] relative">
+      {/*
+        Inner div height = 250vh → sticky releases after 250-100 = 150vh of scroll.
+        Card 3 starts at scrollYProgress=0.5 = 0.5×300vh = 150vh. They match exactly,
+        so the section un-sticks the moment card 3 begins its animation.
+      */}
+      <div className="h-[250vh]">
+        <section className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-16">
+          <h1 className="text-center text-xl font-medium mb-12">
+            Legacy In The Making
+          </h1>
+          <div className="grid grid-cols-1 grid-rows-1 place-items-center flex-1">
+            {legacyCards.map((card, index) => (
+              <Card
+                key={card.id}
+                card={card}
+                scrollYProgress={scrollYProgress}
+                index={index}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+const Card = ({
+  card,
+  scrollYProgress,
+  index,
+}: {
+  card: CardType;
+  scrollYProgress: MotionValue<number>;
+  index: number;
+}) => {
   const duration = 0.5;
   const start = index * 0.25;
   const end = start + duration;
-  
+
   const y = useTransform(scrollYProgress, [start, end], ["0vh", "-120vh"]);
-  const rotate = useTransform(scrollYProgress, [start, end], [card.rotation, -45]);
+  const rotate = useTransform(
+    scrollYProgress,
+    [start, end],
+    [card.rotation, -45],
+  );
 
   return (
     <motion.div
@@ -99,28 +154,3 @@ const Card = ({ card, scrollYProgress, index }: { card: CardType, scrollYProgres
     </motion.div>
   );
 };
-
-const Legacy = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  return (
-    <div ref={containerRef} className="h-[500vh] relative">
-      <section className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-16">
-        <h1 className="text-center text-xl font-medium mb-12">
-          Legacy In The Making
-        </h1>
-        <div className="grid grid-cols-1 grid-rows-1 place-items-center flex-1">
-          {legacyCards.map((card, index) => (
-            <Card key={card.id} card={card} scrollYProgress={scrollYProgress} index={index} />
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-};
-
-export default Legacy;

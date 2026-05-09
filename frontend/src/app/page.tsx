@@ -31,7 +31,9 @@ const Home = () => {
       <Service />
       <Sliding />
       <Legacy/>
-      <section className="h-98 bg-green-400"></section>
+      <section className="min-h-screen bg-amber-50 -mt-[800px]">
+
+      </section>
     </main>
   );
 };
