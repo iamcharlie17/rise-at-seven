@@ -11,6 +11,7 @@ import FeaturedWork from "./components/FeaturedWork";
 import Service from "./components/Service";
 import Sliding from "./components/Sliding";
 import Legacy from "./components/Legacy";
+import WhatNew from "./components/WhatNew";
 
 const Home = () => {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -31,9 +32,7 @@ const Home = () => {
       <Service />
       <Sliding />
       <Legacy/>
-      <section className="hidden lg:block min-h-screen bg-amber-50 -mt-[800px]">
-
-      </section>
+      <WhatNew/>
     </main>
   );
 };
