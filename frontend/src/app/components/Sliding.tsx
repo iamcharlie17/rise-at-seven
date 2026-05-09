@@ -22,7 +22,7 @@ const Sliding = () => {
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="cursor-none relative text-[65px] lg:text-[200px] font-medium leading-none flex items-center gap-4 pb-8 lg:py-16">
+          className="cursor-grab lg:cursor-none relative text-[65px] lg:text-[200px] font-medium leading-none flex items-center gap-4 pb-8 lg:py-16">
           <h1 className="whitespace-nowrap">Chasing Consumers</h1>
           <img
             src="https://rise-atseven.transforms.svdcdn.com/production/images/b2087e0cd3f699d3efc76f809ec72a85a6ab378e-1080x1350.jpg?w=2000&h=2000&q=80&fm=webp&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&dm=1750847630&s=69735376fddade35059585570e316087"

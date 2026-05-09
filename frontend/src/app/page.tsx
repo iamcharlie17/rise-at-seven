@@ -33,6 +33,7 @@ const Home = () => {
       <Sliding />
       <Legacy/>
       <WhatNew/>
+      <section className="h-98 bg-green-200"></section>
     </main>
   );
 };

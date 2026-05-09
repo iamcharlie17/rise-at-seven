@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import AnimatedText from "./AnimatedText";
 import Button from "./buttons/Button";
 import img1 from "@/assets/img1.jpg";
@@ -44,6 +44,24 @@ const WhatNew = () => {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const total = whatNewData.length;
+
+  const goTo = useCallback(
+    (next: number) => {
+      setDirection(next > current ? 1 : -1);
+      setCurrent(((next % total) + total) % total);
+    },
+    [current, total],
+  );
+
+  const sliderVariants = {
+    enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
+    center: { x: "0%", opacity: 1 },
+    exit: (dir: number) => ({ x: dir > 0 ? "-100%" : "100%", opacity: 0 }),
+  };
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPos({ x: e.clientX, y: e.clientY });
@@ -52,24 +70,23 @@ const WhatNew = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  const activeCard = whatNewData[current];
+
   return (
     <>
       {/* Custom cursor — same style as FeaturedWork */}
       <div
-        className={`fixed pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 ${isHovered ? "opacity-100" : "opacity-0"
-          }`}
+        className={`fixed pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 ${isHovered ? "opacity-100" : "opacity-0"}`}
         style={{ left: cursorPos.x, top: cursorPos.y }}
       >
         <div
-          className={`bg-[#B2F6E3] text-black -rotate-45 rounded-full w-24 h-24 p-8 flex justify-center items-center transition-transform duration-300 ${isHovered ? "scale-100" : "scale-[0.1]"
-            }`}
+          className={`bg-[#B2F6E3] text-black -rotate-45 rounded-full w-24 h-24 p-8 flex justify-center items-center transition-transform duration-300 ${isHovered ? "scale-100" : "scale-[0.1]"}`}
         >
           <HiArrowRight size={30} />
         </div>
       </div>
 
       <section className="lg:min-h-screen lg:-mt-200 py-8 lg:py-12 px-2 lg:px-4">
-        {/* Header */}
         <div className="flex justify-between items-end">
           <div className="text-5xl lg:text-8xl font-medium lg:flex items-center gap-2">
             <div className="flex items-end lg:items-center gap-2">
@@ -111,10 +128,87 @@ const WhatNew = () => {
           </div>
         </div>
 
-        <hr className="mt-8 mb-12 text-gray-400" />
+        <hr className="mt-8 mb-12 text-gray-400 hidden lg:block" />
 
-        {/* Cards */}
-        <div className="flex justify-between gap-4">
+        <div className="lg:hidden">
+          <div className="relative overflow-hidden">
+            {/* Ghost card (using whatNewData[1] which has the longest title) to anchor the exact height */}
+            <div className="w-[90%] p-4 invisible pointer-events-none py-2" aria-hidden>
+              <div className="w-full aspect-square" />
+              <div className="mt-4 space-y-2">
+                <div className="flex gap-2 items-center text-sm">
+                  <div className="px-2.5 py-1.5 flex gap-1 items-center">
+                    <div className="h-5 w-5" />
+                    <span>&nbsp;</span>
+                  </div>
+                </div>
+                <h2 className="text-xl font-medium">{whatNewData[1].title}</h2>
+              </div>
+            </div>
+
+            <div className="absolute inset-0 py-2 flex gap-4 w-full">
+              <AnimatePresence custom={direction} mode="popLayout" initial={false}>
+                {[0, 1].map((offset) => {
+                  const idx = (((current + offset) % total) + total) % total;
+                  const activeCard = whatNewData[idx];
+                  return (
+                    <motion.div
+                      key={activeCard.id}
+                      layout
+                      custom={direction}
+                      variants={sliderVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0}
+                      onDragEnd={(_, info) => {
+                        if (info.offset.x < -40) goTo(current + 1);
+                        else if (info.offset.x > 40) goTo(current - 1);
+                      }}
+                      className="min-w-[90%] w-[90%] h-full rounded-2xl bg-[#EFEEEC] cursor-grab active:cursor-grabbing"
+                    >
+                      <img
+                        src={activeCard.image.src}
+                        alt={activeCard.title}
+                        className="w-full aspect-square object-cover rounded-xl pointer-events-none"
+                      />
+                      <div className="mt-4 space-y-2">
+                        <div className="text-gray-400 font-medium flex gap-2 items-center">
+                          <div className="px-2.5 py-1.5 bg-white flex gap-1 items-center rounded-full text-sm">
+                            <img
+                              src={activeCard.author.img}
+                              alt=""
+                              className="h-5 aspect-square rounded-full object-cover pointer-events-none"
+                            />
+                            <span>{activeCard.author.name}</span>
+                          </div>
+                          <div className="px-2.5 py-1.5 bg-white flex gap-1 items-center rounded-full text-sm">
+                            <FaClock />
+                            <span>{activeCard.time}</span>
+                          </div>
+                        </div>
+                        <h2 className="text-xl font-medium text-black">{activeCard.title}</h2>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+          </div>
+
+          <div className="mt-4 w-full h-[3px] bg-black/20 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full bg-black rounded-full"
+              animate={{ width: `${((current + 1) / total) * 100}%` }}
+              transition={{ type: "spring", stiffness: 120, damping: 20 }}
+            />
+          </div>
+        </div>
+
+        <div className="hidden lg:flex justify-between gap-4">
           {whatNewData?.map((n) => (
             <div
               key={n.id}
