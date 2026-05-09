@@ -51,7 +51,7 @@ const Footer = () => {
             </div>
             <div className="text-black flex gap-2 items-center flex-wrap">
               {socialIcons.map((Icon, i) => (
-                <div key={i} className="flex gap-1 text-sm lg:text-sm px-1 lg:px-2 py-0.5 bg-white rounded-full items-center">
+                <div key={i} className="flex gap-1 items-center text-sm lg:text-sm px-1 lg:px-2 py-0.5 bg-white rounded-full hover:rounded-sm transition-all">
                   <Icon />
                   <div className="-rotate-45">
                     <HiArrowRight />
@@ -63,8 +63,18 @@ const Footer = () => {
           {footerLinks.map((col, i) => (
             <div key={i} className="border-l border-l-[#282828] px-4">
               {col.map((link) => (
-                <div key={link} className="text-sm lg:text-2xl font-medium">
-                  {link}
+                <div
+                  key={link}
+                  className="group cursor-pointer text-sm lg:text-2xl font-medium overflow-hidden h-5 lg:h-8 w-fit"
+                >
+                  <div className="flex flex-col transition-transform duration-300 ease-out group-hover:-translate-y-1/2">
+                    <span className="flex items-center h-5 lg:h-8 transition-colors duration-100 group-hover:text-[#B2F6E3]">
+                      {link}
+                    </span>
+                    <span className="flex items-center h-5 lg:h-8 text-[#B2F6E3]">
+                      {link}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
