@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  MotionValue,
+  AnimatePresence,
+} from "framer-motion";
 
 type CardType = {
   id: number;
@@ -77,12 +83,96 @@ const legacyCards: CardType[] = [
 const Legacy = () => {
   return (
     <>
+      <MobileLegacy />
       <DesktopLegacy />
     </>
   );
 };
 
 export default Legacy;
+
+const MobileLegacy = () => {
+  const [current, setCurrent] = React.useState(0);
+  const [direction, setDirection] = React.useState(1);
+  const total = legacyCards.length;
+
+  const goTo = React.useCallback(
+    (next: number) => {
+      setDirection(next > current ? 1 : -1);
+      setCurrent(((next % total) + total) % total);
+    },
+    [current, total],
+  );
+
+  const variants = {
+    enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
+    center: { x: "0%", opacity: 1 },
+    exit: (dir: number) => ({ x: dir > 0 ? "-100%" : "100%", opacity: 0 }),
+  };
+
+  const card = legacyCards[current];
+
+  return (
+    <section className="block lg:hidden px-2 py-4">
+      <h1 className="text-center text-lg font-medium mb-4">
+        Legacy In The Making
+      </h1>
+
+      {/* Slider  */}
+      <div className="relative overflow-hidden rounded-2xl">
+        <div
+          className={`w-full p-8 rounded-2xl invisible ${legacyCards[0].bgColor}`}
+          aria-hidden
+        >
+          <div className="w-full aspect-[4/3]" />
+          <h2 className="text-center text-2xl font-medium py-4">
+            {legacyCards[0].title}
+          </h2>
+          <p className="text-center text-sm">{legacyCards[0].description}</p>
+        </div>
+
+        <AnimatePresence custom={direction} mode="popLayout" initial={false}>
+          <motion.div
+            key={card.id}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.4 }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -40) goTo(current + 1);
+              else if (info.offset.x > 40) goTo(current - 1);
+            }}
+            className={`absolute inset-0 w-full h-full p-8 rounded-xl ${card.bgColor} ${card.textColor} cursor-grab active:cursor-grabbing`}
+          >
+            <img
+              src={card.image}
+              alt={card.title}
+              className="w-full aspect-[4/3] object-cover rounded-xl pointer-events-none"
+            />
+            <h2 className="text-center text-2xl font-medium py-4">
+              {card.title}
+            </h2>
+            <p className="text-center text-sm">{card.description}</p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Progress line */}
+      <div className="mt-4 w-full h-[3px] bg-black/20 rounded-full overflow-hidden">
+        <motion.div
+          className="h-full bg-black rounded-full"
+          animate={{ width: `${((current + 1) / total) * 100}%` }}
+          transition={{ type: "spring", stiffness: 120, damping: 20 }}
+        />
+      </div>
+    </section>
+  );
+};
 
 const DesktopLegacy = () => {
   // Outer ref: full scroll range for animations (400vh → range = 300vh)
@@ -92,7 +182,7 @@ const DesktopLegacy = () => {
     offset: ["start start", "end end"],
   });
   return (
-    <div ref={scrollRef} className="h-[300vh] relative">
+    <div ref={scrollRef} className="h-[300vh] relative hidden lg:block">
       {/*
         Inner div height = 250vh → sticky releases after 250-100 = 150vh of scroll.
         Card 3 starts at scrollYProgress=0.5 = 0.5×300vh = 150vh. They match exactly,

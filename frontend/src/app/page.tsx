@@ -31,7 +31,7 @@ const Home = () => {
       <Service />
       <Sliding />
       <Legacy/>
-      <section className="min-h-screen bg-amber-50 -mt-[800px]">
+      <section className="hidden lg:block min-h-screen bg-amber-50 -mt-[800px]">
 
       </section>
     </main>
