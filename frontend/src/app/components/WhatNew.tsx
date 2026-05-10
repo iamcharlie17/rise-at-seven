@@ -250,9 +250,9 @@ const DesktopWhatNew = () => {
               <img
                 src={n.image.src}
                 alt=""
-                className="aspect-square object-cover w-full transition-all duration-500 group-hover:scale-105 group-hover:blur-sm"
+                className="aspect-square object-cover w-full transition-all duration-500 group-hover:scale-105"
               />
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full scale-0 group-hover:scale-[150] origin-center transition-transform duration-700 ease-in-out z-10 pointer-events-none bg-white/20" />
+              <div className="absolute inset-0 z-10 pointer-events-none bg-white/10 backdrop-blur-md transition-all duration-300 ease-in-out [clip-path:circle(0%_at_50%_100%)] group-hover:[clip-path:circle(150%_at_50%_100%)]" />
             </div>
             <div className="space-y-2">
               <div className="text-gray-400 font-medium flex gap-2 items-center text-lg">

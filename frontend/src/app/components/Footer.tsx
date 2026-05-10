@@ -28,7 +28,7 @@ const socialIcons = [
 
 const Footer = () => {
   return (
-    <footer className="px-2 lg:px-4">
+    <footer className="px-2 lg:px-4 mt-4 lg:mt-16">
       <div className="bg-black rounded-2xl text-white px-4 lg:px-8 py-8 lg:py-12">
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-10">
           <div className=" col-span-2 space-y-3 lg:space-y-6 lg:max-w-144">
