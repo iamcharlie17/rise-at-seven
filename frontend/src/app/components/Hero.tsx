@@ -56,7 +56,8 @@ const Hero = ({
         @media (max-width: 1024px) {
           .hero-expand-img {
             height: 3.5rem;
-            animation: ${isPreloaderDone ? "expandWidthMobile 0.4s ease-out 0.5s forwards" : "none"};
+            width: ${isPreloaderDone || isMobile ? "3.5rem" : "0"};
+            animation: none;
           }
         }
       `}</style>
@@ -108,12 +109,13 @@ const Hero = ({
           <div className="overflow-hidden pb-1">
             <motion.h1
               initial={{ y: "100%" }}
-              animate={isPreloaderDone ? { y: "0" } : { y: "100%" }}
+              animate={isPreloaderDone || isMobile ? { y: "0" } : { y: "100%" }}
               transition={{
-                duration: 0.5,
+                duration: isMobile ? 0 : 0.5,
                 ease: [0.16, 1, 0.3, 1],
-                delay: 0.05,
+                delay: isMobile ? 0 : 0.05,
               }}
+              className="max-md:!transform-none"
             >
               WeCreate
             </motion.h1>
@@ -122,12 +124,13 @@ const Hero = ({
             <div className="flex items-center justify-center gap-1">
               <motion.h1
                 initial={{ y: "100%" }}
-                animate={isPreloaderDone ? { y: 0 } : { y: "100%" }}
+                animate={isPreloaderDone || isMobile ? { y: 0 } : { y: "100%" }}
                 transition={{
-                  duration: 0.5,
+                  duration: isMobile ? 0 : 0.5,
                   ease: [0.16, 1, 0.3, 1],
-                  delay: 0.1,
+                  delay: isMobile ? 0 : 0.1,
                 }}
+                className="max-md:!transform-none"
               >
                 Category
               </motion.h1>
@@ -143,9 +146,9 @@ const Hero = ({
               transition={{
                 duration: isMobile ? 0 : 0.5,
                 ease: [0.16, 1, 0.3, 1],
-                delay: 0.1,
+                delay: isMobile ? 0 : 0.1,
               }}
-              className="lg:ml-2 text-center w-full lg:w-auto -mt-2"
+              className="lg:ml-2 text-center w-full lg:w-auto -mt-2 max-md:!transform-none"
             >
               Leaders
             </motion.h1>

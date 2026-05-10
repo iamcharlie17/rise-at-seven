@@ -57,6 +57,7 @@ const Service = () => {
                 whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="max-md:!transform-none"
               >
                 Our
               </motion.h1>
@@ -68,7 +69,7 @@ const Service = () => {
               whileInView={{ width: "var(--img-w)" }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
-              className="h-16 lg:h-24 object-cover rounded-md [--img-w:4rem] lg:[--img-w:6rem]"
+              className="h-16 lg:h-24 object-cover rounded-md [--img-w:4rem] lg:[--img-w:6rem] max-md:!w-16 max-md:!transform-none"
             />
           </div>
           <div className="overflow-hidden pb-2 mt-2 lg:mt-0">
@@ -77,6 +78,7 @@ const Service = () => {
               whileInView={{ y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              className="max-md:!transform-none"
             >
               Services
             </motion.h1>
